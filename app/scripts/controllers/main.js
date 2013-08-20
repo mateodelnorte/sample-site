@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sampleSiteApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $resource) {
 
     $scope.items = [];
     $scope.newItem = { };
@@ -16,6 +16,10 @@ angular.module('sampleSiteApp')
     };
 
     $scope.submitorder = function () {
-      alert('submitting order');
-    }
+      var Order = $resource('/api/order/:orderId', { orderId:'@id' }, {
+        place: { method: 'POST' }
+      });
+      var order = new Order({ items: $scope.items });
+      order.$place();
+    };
   });

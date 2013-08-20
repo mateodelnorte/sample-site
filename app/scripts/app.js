@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('sampleSiteApp', ['ui', 'sampleFilters'])
+angular.module('sampleSiteApp', ['ui', 'ngResource', 'sampleFilters'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

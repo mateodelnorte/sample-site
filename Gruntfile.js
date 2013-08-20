@@ -5,6 +5,7 @@ var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
+var path = require('path');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -49,6 +50,33 @@ module.exports = function (grunt) {
         ]
       }
     },
+    express: {
+      site: {
+        options: {
+          port: 9000,
+          bases: path.resolve('app'),
+          monitor: {},
+          debug: true,
+          server: path.resolve('./app')
+        }
+      },
+      livereload: {
+        options: {
+          bases: [path.resolve('app'), path.resolve('.tmp')]
+        }
+      },
+      test: {
+        options: {
+          bases: [path.resolve('.tmp'), path.resolve('test')]
+        }
+      },
+      dist: {
+        options: {
+          debug: false,
+          bases: [path.resolve('app'), path.resolve('dist')]
+        }
+      }
+    },
     connect: {
       options: {
         port: 9000,
@@ -88,7 +116,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>'
+        url: 'http://localhost:<%= express.site.options.port %>'
       }
     },
     clean: {
@@ -296,7 +324,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'connect:livereload',
+      'express:livereload',
       'open',
       'watch'
     ]);
