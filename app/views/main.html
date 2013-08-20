@@ -1,0 +1,26 @@
+<div class="span7">
+  <h1>My order!</h1>
+  <hr />
+  <form novalidate>
+    <div class="controls form-inline pull-right">
+      <input type="text" ng-model="newItem.name" placeholder="item name!" size="20" />
+      <input type="text" ng-model="newItem.price" placeholder="price!" size="5" />
+      <input type="submit" class="btn btn-primary" value="Add" ng-click="additem()"/>
+    </div>
+  <hr class="pull-right" />
+  <div ui-sortable>
+    <div ng-repeat="item in items" class="input-append pull-right">
+      <input type="text" ng-model="item.name" />
+      <input type="text" ng-model="item.price" />
+      <a class="btn" ng-click="removeitem($index)">x</a>
+    </div>
+  </div>
+  <div ng-model="items" class="pull-right">
+    subtotal: ${{ items | total }}
+    <hr />
+  </div>
+  <div class="span7">
+    <a class="btn pull-right" ng-click="submitorder()">Submit Order</a>
+  </div>
+  </form>
+</div>
