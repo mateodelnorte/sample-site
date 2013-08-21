@@ -21,10 +21,14 @@ angular.module('sampleSiteApp')
       });
       var order = new Order({ items: $scope.items });
       order.$place(function (o) {
+        var confirmationSent = false;
         var iv = setInterval(function checkForResults () {
           var OrderConfirmation = $resource('/api/order/confirmation/:orderId', { orderId: '@id' });
           OrderConfirmation.get({ orderId: o.order.id }, function (c) {
-            if (c.confirmationEmailText) alert(c.confirmationEmailText);
+            if ( ! confirmationSent && c.confirmationEmailText) {
+              alert(c.confirmationEmailText);
+              confirmationSent = true;
+            }
             if (c.receiptEmailText) {
               alert(c.receiptEmailText);
               clearInterval(iv);
