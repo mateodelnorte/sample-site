@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+var debug = require('debug')('site');
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -29,5 +30,5 @@ if ('development' === app.get('env')) {
 var port = parseInt(app.get('port'))
 
 http.createServer(app).listen(port, function(){
-  console.log('Express server listening on port ' + port);
+  debug('Express server listening on port ' + port);
 });

@@ -20,6 +20,13 @@ angular.module('sampleSiteApp')
         place: { method: 'POST' }
       });
       var order = new Order({ items: $scope.items });
-      order.$place();
+      order.$place(function (o) {
+        setInterval(function checkForResults () {
+          var OrderConfirmation = $resource('/api/order/confirmation', { orderId: '@id' });
+          OrderConfirmation.$get({ orderId: o.order.id }, function (c) {
+            console.log(c);
+          });
+        }, 1000);
+      });
     };
   });
