@@ -21,10 +21,14 @@ angular.module('sampleSiteApp')
       });
       var order = new Order({ items: $scope.items });
       order.$place(function (o) {
-        setInterval(function checkForResults () {
-          var OrderConfirmation = $resource('/api/order/confirmation', { orderId: '@id' });
-          OrderConfirmation.$get({ orderId: o.order.id }, function (c) {
-            console.log(c);
+        var iv = setInterval(function checkForResults () {
+          var OrderConfirmation = $resource('/api/order/confirmation/:orderId', { orderId: '@id' });
+          OrderConfirmation.get({ orderId: o.order.id }, function (c) {
+            if (c.confirmationEmailText) alert(c.confirmationEmailText);
+            if (c.receiptEmailText) {
+              alert(c.receiptEmailText);
+              clearInterval(iv);
+            }
           });
         }, 1000);
       });
