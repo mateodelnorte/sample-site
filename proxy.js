@@ -8,13 +8,10 @@ var proxyPort = parseInt(process.env.PROXY_PORT || 3000);
 var sitePort = parseInt(process.env.SITE_PORT || 3001);
 
 var server = bouncy(function (req, res, bounce) {
-  console.log('request')
   if (req.headers.host.indexOf('api') > -1) {
-    console.log('routing to api at ', apiPort);
     bounce(apiPort);
   }
   else {
-    console.log('wtf am I routing to the site? at ', sitePort)
     bounce(sitePort);
   }
 });
