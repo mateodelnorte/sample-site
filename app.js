@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var bus = require('servicebus').bus();
+var bus = require('./lib/bus');
 var debug = require('debug')('site');
 var express = require('express');
 var http = require('http');
