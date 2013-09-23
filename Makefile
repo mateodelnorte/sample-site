@@ -1,4 +1,4 @@
-DEBUG=site,api,proxy
+DEBUG=site*,api*,proxy*
 API_PORT=3002
 PROXY_PORT=80
 RABBITMQ_URL=amqp://localhost:5672
