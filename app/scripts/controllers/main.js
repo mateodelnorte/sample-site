@@ -16,14 +16,14 @@ angular.module('sampleSiteApp')
     };
 
     $scope.submitorder = function () {
-      var Order = $resource('/api/order/:orderId', { orderId:'@id' }, {
+      var Order = $resource(apiUrl + '/api/order/:orderId', { orderId:'@id' }, {
         place: { method: 'POST' }
       });
       var order = new Order({ items: $scope.items });
       order.$place(function (o) {
         var confirmationSent = false;
         var iv = setInterval(function checkForResults () {
-          var OrderConfirmation = $resource('/api/order/confirmation/:orderId', { orderId: '@id' });
+          var OrderConfirmation = $resource(apiUrl + '/api/order/confirmation/:orderId', { orderId: '@id' });
           OrderConfirmation.get({ orderId: o.order.id }, function (c) {
             if ( ! confirmationSent && c.confirmationEmailText) {
               alert(c.confirmationEmailText);

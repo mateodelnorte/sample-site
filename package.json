@@ -18,7 +18,8 @@
     "restify": "~2.6.0",
     "debug": "~0.7.2",
     "node-uuid": "~1.4.1",
-    "servicebus": "~0.2.0"
+    "servicebus": "~0.2.0",
+    "hbs": "~2.4.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
